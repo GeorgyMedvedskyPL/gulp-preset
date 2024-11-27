@@ -1,0 +1,17 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php [L]
+
+# Настройка ошибок
+ErrorDocument 404 /index.php
+ErrorDocument 500 /index.php
+ErrorDocument 403 /index.php
+
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+Header unset X-Powered-By
