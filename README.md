@@ -1,2 +1,2 @@
-# white-temlate-without-js
+# white-temlate
 Шаблон для разработки лендингов без использования скриптов
