@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  color: black;
+  &__copyright {
+    font-size: 18px;
+    opacity: 0.5;
+    width: 30%;
+  }
+}
+
+@media screen and (width <= 1280px) {
+  .footer {
+    flex-direction: column;
+    gap: 20px;
+    &__copyright {
+      width: 50%;
+    }
+  }
+}

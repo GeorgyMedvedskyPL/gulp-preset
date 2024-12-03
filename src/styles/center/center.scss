@@ -1,0 +1,21 @@
+.center {
+  padding: 0 160px;
+}
+
+@media screen and (width <= 1440px) {
+  .center {
+    padding: 0 100px;
+  }
+}
+
+@media screen and (width <= 1024px) {
+  .center {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .center {
+    padding: 0 20px;
+  }
+}

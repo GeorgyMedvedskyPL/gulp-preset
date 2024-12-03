@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  &__list {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .menu {
+    &__list {
+      flex-direction: column;
+    }
+  }
+}

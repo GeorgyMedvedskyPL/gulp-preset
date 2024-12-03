@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+@media screen and (width <= 1280px) {
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

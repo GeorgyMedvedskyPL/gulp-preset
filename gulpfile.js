@@ -20,7 +20,7 @@ const paths = {
     dest: 'dist/styles',
   },
   scss: {
-    src: './src/styles/index.scss',
+    src: './src/styles/**/*.scss',
     dest: 'dist/styles',
   },
   images: {
@@ -113,7 +113,7 @@ function serve() {
   });
 }
 
-const build = gulp.series(gulp.parallel(clean, html, fonts, scss, images));
+const build = gulp.series(gulp.series(clean, html, fonts, scss, images));
 const watchapp = gulp.parallel(build, watchFiles, serve);
 
 exports.html = html;
