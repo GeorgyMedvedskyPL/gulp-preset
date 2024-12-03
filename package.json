@@ -1,21 +1,15 @@
 {
-  "name": "gulp-preset",
+  "name": "gulp-template",
   "version": "1.0.0",
-  "description": "Заготовка для верстки",
+  "description": "template for white projects",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write './src/**/*.{html,css,sass,scss,js}'",
-    "lintfix": "stylelint './src/**/*.{css,sass,scss}' --fix",
-    "fixAll": "npm run format && npm run lintfix",
-    "build": "gulp build",
-    "dev": "gulp"
+    "format": "prettier --write './**/*.{html,css,scss,js,json}'",
+    "build": "npm run format && gulp build",
+    "dev": "npm run format && gulp"
   },
-  "repository": {},
-  "keywords": [],
   "author": "Georgy Medvedsky",
   "license": "ISC",
-  "bugs": {},
-  "homepage": "https://github.com/GeorgyMedvedskyPL/white-template#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.3",
@@ -25,14 +19,12 @@
     "gulp-concat-css": "^3.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^10.0.0",
-    "gulp-sass": "^5.1.0",
-    "gulp-sass-glob": "^1.1.0",
+    "gulp-sass": "^6.0.0",
     "html-minifier": "^4.0.0",
-    "postcss": "^8.4.47",
+    "postcss": "^8.4.49",
     "postcss-combine-media-query": "^1.0.1",
-    "prettier": "^3.3.3",
-    "sass": "^1.79.4",
-    "stylelint": "^16.9.0"
+    "prettier": "^3.4.1",
+    "sass": "^1.81.0"
   },
   "browserslist": [
     "last 5 versions"
