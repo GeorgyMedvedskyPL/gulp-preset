@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write './**/*.{html,css,scss,js,json}'",
-    "build": "npm run format && gulp build",
-    "dev": "npm run format && gulp"
+    "build": "npm run format && cross-env NODE_ENV=prod gulp build",
+    "dev": "npm run format && cross-env NODE_ENV=dev gulp"
   },
   "author": "Georgy Medvedsky",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "browser-sync": "^3.0.3",
+    "cross-env": "^7.0.3",
     "cssnano": "^7.0.6",
     "del": "^6.0.0",
     "gulp": "^5.0.0",

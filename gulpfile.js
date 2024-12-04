@@ -16,11 +16,11 @@ const paths = {
     dest: 'dist/',
   },
   css: {
-    src: './src/styles/index.css',
+    src: './src/styles/**/*.css',
     dest: 'dist/styles',
   },
   scss: {
-    src: './src/styles/**/*.scss',
+    src: './src/styles/index.scss',
     dest: 'dist/styles',
   },
   images: {
@@ -34,28 +34,35 @@ const paths = {
 };
 
 function html() {
-  const options = {
-    removeComments: true,
-    removeRedundantAttributes: true,
-    removeScriptTypeAttributes: true,
-    removeStyleLinkTypeAttributes: true,
-    sortClassName: true,
-    useShortDoctype: true,
-    collapseWhitespace: true,
-    minifyCSS: true,
-    keepClosingSlash: true,
-  };
-  return gulp
-    .src('src/**/*.html')
-    .pipe(plumber())
-    .on('data', function (file) {
-      const buferFile = Buffer.from(
-        htmlMinify.minify(file.contents.toString(), options)
-      );
-      return (file.contents = buferFile);
-    })
-    .pipe(gulp.dest('dist/'))
-    .pipe(browserSync.reload({ stream: true }));
+  if (!isDev()) {
+    const options = {
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      sortClassName: true,
+      useShortDoctype: true,
+      collapseWhitespace: true,
+      minifyCSS: true,
+      keepClosingSlash: true,
+    };
+    return gulp
+      .src('src/**/*.html')
+      .pipe(plumber())
+      .on('data', function (file) {
+        const buferFile = Buffer.from(
+          htmlMinify.minify(file.contents.toString(), options)
+        );
+        return (file.contents = buferFile);
+      })
+      .pipe(gulp.dest('dist/'));
+  } else {
+    return gulp
+      .src('src/**/*.html')
+      .pipe(plumber())
+      .pipe(gulp.dest('dist/'))
+      .pipe(browserSync.reload({ stream: true }));
+  }
 }
 
 function css() {
@@ -70,15 +77,26 @@ function css() {
 }
 
 function scss() {
-  const plugins = [autoprefixer(), mediaquery(), cssnano()];
-  return gulp
-    .src(paths.scss.src)
-    .pipe(sass())
-    .pipe(plumber())
-    .pipe(concat('bundle.css'))
-    .pipe(postcss(plugins))
-    .pipe(gulp.dest(paths.scss.dest))
-    .pipe(browserSync.reload({ stream: true }));
+  if (!isDev()) {
+    const plugins = [autoprefixer(), mediaquery(), cssnano()];
+    return gulp
+      .src(paths.scss.src)
+      .pipe(sass())
+      .pipe(plumber())
+      .pipe(concat('bundle.css'))
+      .pipe(postcss(plugins))
+      .pipe(gulp.dest(paths.scss.dest));
+  } else {
+    const plugins = [autoprefixer(), mediaquery()];
+    return gulp
+      .src(paths.scss.src)
+      .pipe(sass())
+      .pipe(plumber())
+      .pipe(concat('bundle.css'))
+      .pipe(postcss(plugins))
+      .pipe(gulp.dest(paths.scss.dest))
+      .pipe(browserSync.reload({ stream: true }));
+  }
 }
 
 function fonts() {
@@ -111,6 +129,10 @@ function serve() {
       baseDir: './dist',
     },
   });
+}
+
+function isDev() {
+  return process.env.NODE_ENV === 'dev';
 }
 
 const build = gulp.series(gulp.series(clean, html, fonts, scss, images));

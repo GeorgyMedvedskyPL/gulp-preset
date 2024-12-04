@@ -1,3 +1,6 @@
+@use '../variables.scss';
+@use '../mixins.scss';
+
 *,
 *::before,
 *::after {
@@ -34,8 +37,7 @@ a {
 .page {
   margin: 0;
   font-family: 'DancingScript';
-  font-size: 40px;
-  color: red;
+  @include mixins.font(variables.$font-color-main, 40px, 700);
   text-align: center;
   display: flex;
   flex-direction: column;
