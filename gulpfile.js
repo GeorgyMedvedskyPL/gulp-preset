@@ -20,7 +20,12 @@ const paths = {
     dest: 'dist/styles',
   },
   scss: {
-    src: './src/styles/index.scss',
+    dev: {
+      src: './src/styles/**/*.scss',
+    },
+    prod: {
+      src: './src/styles/index.scss',
+    },
     dest: 'dist/styles',
   },
   images: {
@@ -80,7 +85,7 @@ function scss() {
   if (!isDev()) {
     const plugins = [autoprefixer(), mediaquery(), cssnano()];
     return gulp
-      .src(paths.scss.src)
+      .src(paths.scss.prod.src)
       .pipe(sass())
       .pipe(plumber())
       .pipe(concat('bundle.css'))
@@ -89,7 +94,7 @@ function scss() {
   } else {
     const plugins = [autoprefixer(), mediaquery()];
     return gulp
-      .src(paths.scss.src)
+      .src(paths.scss.dev.src)
       .pipe(sass())
       .pipe(plumber())
       .pipe(concat('bundle.css'))
@@ -119,7 +124,7 @@ function watchFiles() {
   gulp.watch(paths.html.src, html);
   gulp.watch(paths.fonts.src, fonts);
   gulp.watch(paths.css.src, css);
-  gulp.watch(paths.scss.src, scss);
+  gulp.watch(paths.scss.dev.src, scss);
   gulp.watch(paths.images.src, images);
 }
 
