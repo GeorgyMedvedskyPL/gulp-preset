@@ -1,5 +1,11 @@
 .center {
-  padding: 0 160px;
+  padding: 0 calc(50% - 800px);
+}
+
+@media screen and (width <= 1620px) {
+  .center {
+    padding: 0 120px;
+  }
 }
 
 @media screen and (width <= 1440px) {
