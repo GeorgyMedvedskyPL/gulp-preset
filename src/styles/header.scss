@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: black;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 @media screen and (width <= 1280px) {

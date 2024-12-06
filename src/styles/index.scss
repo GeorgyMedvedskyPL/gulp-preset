@@ -1,10 +1,11 @@
-@use './fonts/fonts.scss';
-@use './global/global.scss';
-@use './center/center.scss';
+@use './fonts.scss';
+@use './global.scss';
+@use './center.scss';
 
-@use './header/header.scss';
-@use './main/main.scss';
-@use './footer/footer.scss';
+@use './header.scss';
+@use './main.scss';
+@use './footer.scss';
 
-@use './logo/logo.scss';
-@use './menu/menu.scss';
+@use './logo.scss';
+@use './menu.scss';
+@use './title.scss';

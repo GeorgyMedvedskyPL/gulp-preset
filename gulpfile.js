@@ -9,6 +9,7 @@ const mediaquery = require('postcss-combine-media-query');
 const cssnano = require('cssnano');
 const htmlMinify = require('html-minifier');
 const sass = require('gulp-sass')(require('sass'));
+const rename = require('gulp-rename');
 
 const paths = {
   html: {
@@ -26,7 +27,7 @@ const paths = {
     prod: {
       src: './src/styles/index.scss',
     },
-    dest: 'dist/styles',
+    dest: 'dist/styles/',
   },
   images: {
     src: './src/images/**/*',
