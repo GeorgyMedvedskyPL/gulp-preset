@@ -37,6 +37,10 @@ const paths = {
     src: './src/fonts/**/*',
     dest: 'dist/fonts',
   },
+  other: {
+    src: './src/{robots.txt,.htaccess,sitemap.xml}',
+    dest: 'dist/',
+  },
 };
 
 function html() {
@@ -117,6 +121,13 @@ function images() {
     .pipe(gulp.dest(paths.images.dest));
 }
 
+function otherFiles() {
+  if (!isDev()) {
+    return gulp.src(paths.other.src).pipe(gulp.dest(paths.other.dest));
+  }
+  return;
+}
+
 function clean() {
   return del('dist');
 }
@@ -141,7 +152,9 @@ function isDev() {
   return process.env.NODE_ENV === 'dev';
 }
 
-const build = gulp.series(gulp.series(clean, html, fonts, scss, images));
+const build = gulp.series(
+  gulp.series(clean, html, fonts, scss, images, otherFiles)
+);
 const watchapp = gulp.parallel(build, watchFiles, serve);
 
 exports.html = html;
@@ -149,6 +162,7 @@ exports.css = css;
 exports.scss = scss;
 exports.images = images;
 exports.fonts = fonts;
+exports.otherFiles = otherFiles;
 exports.clean = clean;
 exports.build = build;
 exports.watchapp = watchapp;
