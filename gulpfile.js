@@ -135,7 +135,7 @@ function initSitemap() {
     .src(paths.html.src, { read: false })
     .pipe(
       sitemap({
-        siteUrl: 'https://sitename.com',
+        siteUrl: 'https://sitename.com', // Заменить sitename
         changefreq: 'weekly',
         priority: function (file) {
           return file.relative === 'index.html' ? 1.0 : 0.5;
