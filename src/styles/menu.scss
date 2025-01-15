@@ -10,10 +10,12 @@
   &__link {
     text-transform: capitalize;
     transition: 0.3s;
-    &:hover {
-      transform: translateY(-5px) scale(1.1);
-      text-shadow: 0 0 5px rgba(#000, 0.3);
-    }
+  }
+}
+
+@media (hover: hover) {
+  .menu__link:hover {
+    opacity: 0.5;
   }
 }
 

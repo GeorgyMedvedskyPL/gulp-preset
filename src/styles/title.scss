@@ -1,6 +1,6 @@
 @use './mixins';
 
 .title {
-  @include mixins.font(red, 50px, 700);
+  @include mixins.font(#fff, 50px, 700);
   text-align: center;
 }

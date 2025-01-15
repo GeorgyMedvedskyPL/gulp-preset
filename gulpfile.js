@@ -15,6 +15,9 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const concatJs = require('gulp-concat');
 const sitemap = require('gulp-sitemap');
+const cheerio = require('cheerio');
+const robots = require('gulp-robots');
+let canonical = null;
 
 const paths = {
   html: {
@@ -134,17 +137,47 @@ function images() {
 
 function initSitemap() {
   return gulp
-    .src(paths.html.src, { read: false })
+    .src(paths.html.src)
+    .pipe(plumber())
+    .pipe(gulp.dest('temp'))
+    .on('end', () => {
+      fs.readdir('temp', (err, files) => {
+        if (err) throw err;
+        files.forEach((file) => {
+          fs.readFile(path.join('temp', file), 'utf8', (err, data) => {
+            if (err) throw err;
+            const $ = cheerio.load(data);
+            canonical = $('link[rel="canonical"]').attr('href');
+            gulp
+              .src(paths.html.src, { read: false })
+              .pipe(
+                sitemap({
+                  siteUrl: canonical,
+                  changefreq: 'weekly',
+                  priority: function (file) {
+                    return file.relative === 'index.html' ? 1.0 : 0.5;
+                  },
+                })
+              )
+              .pipe(gulp.dest(paths.html.dest));
+          });
+        });
+      });
+    });
+}
+
+function generateRobots() {
+  return gulp
+    .src('./src/robots.txt')
     .pipe(
-      sitemap({
-        siteUrl: 'https://sitename.com', // Замените sitename
-        changefreq: 'weekly',
-        priority: function (file) {
-          return file.relative === 'index.html' ? 1.0 : 0.5;
-        },
+      robots({
+        useragent: '*',
+        allow: '/',
+        disallow: [],
+        sitemap: canonical,
       })
     )
-    .pipe(gulp.dest(paths.html.dest));
+    .pipe(gulp.dest('dist/'));
 }
 
 function otherFiles() {
@@ -184,7 +217,17 @@ function checkJsDirectory() {
 }
 
 const build = gulp.series(
-  gulp.series(clean, html, initSitemap, fonts, scss, js, images, otherFiles)
+  gulp.series(
+    clean,
+    html,
+    initSitemap,
+    fonts,
+    scss,
+    js,
+    images,
+    otherFiles,
+    generateRobots
+  )
 );
 const watchapp = gulp.parallel(build, watchFiles, serve);
 
