@@ -174,7 +174,7 @@ function generateRobots() {
         useragent: '*',
         allow: '/',
         disallow: [],
-        sitemap: canonical,
+        sitemap: `${canonical}/sitemap.xml`,
       })
     )
     .pipe(gulp.dest('dist/'));
